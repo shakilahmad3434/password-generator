@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="advanceGenerator.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Advance Password Generator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random <span>Password</span> Generator You Can Trust!</h1>
+      <form>
+        <input type="text" class="userInput" />
+        <i class="fa-regular fa-copy copy-code"></i>
+        <i class="fa-solid fa-rotate re-generate"></i>
+      </form>
+      <div class="range-box">
+        <span>Password Length: </span>
+        <input
+          type="range"
+          min="8"
+          max="32"
+          value="12"
+          class="range-slider"
+          id="myRange"
+        />
+        <input type="number" class="input-number" value="12" max="32" />
+      </div>
+      <h2>Customize your password</h2>
+      <div class="checkboxs">
+        <div class="first-checkbox">
+          <label for="lowercase">Lowercase </label><br />
+          <label class="switch">
+            <input type="checkbox" id="lowercase" name="lowercase" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <label for="uppercase">Uppercase </label><br />
+          <label class="switch">
+            <input type="checkbox" id="uppercase" name="uppercase" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <label for="number">Numbers </label><br />
+          <label class="switch">
+            <input type="checkbox" id="number" name="number" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <label for="symbol">Symbols </label><br />
+          <label class="switch">
+            <input type="checkbox" id="symbol" name="symbol" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <label for="duplicate-chars">Exclude Duplicate Chars </label><br />
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="duplicate-chars"
+              name="duplicate-chars"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <label for="exclude-similar">exclude similar (1,l,I,0,O) </label
+          ><br />
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="exclude-similar"
+              name="exclude-similar"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="password-strength">
+        <p>Password Strength:</p>
+        <span
+          ><i class="fa-solid fa-shield"></i
+          ><strong id="pass-strength">Strong</strong></span
+        >
+      </div>
+      <div class="button">
+        <button id="generate-btn">Generate Password</button>
+      </div>
+    </div>
+
+    <!-- notification coding start -->
+    <div class="notifications">
+      <div class="success">
+        <div class="success__icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            viewBox="0 0 24 24"
+            height="24"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              fill="#393a37"
+              d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <div class="success__title">Copy Code Successfully</div>
+        <div class="success__close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            viewBox="0 0 20 20"
+            height="20"
+          >
+            <path
+              fill="#393a37"
+              d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+      // DOM Elements
+const displayPassword = document.querySelector(".userInput");
+const slider = document.querySelector(".range-slider");
+const sliderValue = document.querySelector(".input-number");
+const lowercase = document.querySelector("#lowercase");
+const uppercase = document.querySelector("#uppercase");
+const number = document.querySelector("#number");
+const symbol = document.querySelector("#symbol");
+const excludeDuplicateChars = document.querySelector("#duplicate-chars");
+const excludeSimilar = document.querySelector("#exclude-similar");
+const copyCode = document.querySelector(".copy-code");
+const reGenerate = document.querySelector(".re-generate");
+const passStrength = document.querySelector("#pass-strength");
+const generateButton = document.querySelector("#generate-btn");
+
+// Character sets
+const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const allNumbers = "0123456789";
+const allSymbols = "~!@#$%^&*";
+const similarChars = "ilI1oO0";
+
+// Sync slider and number input
+slider.addEventListener("input", () => {
+  sliderValue.value = slider.value;
+});
+sliderValue.addEventListener("input", () => {
+  slider.value = sliderValue.value;
+});
+
+// Generate password
+const generatePassword = () => {
+  let genPassword = "";
+  let allChars = "";
+
+  // Build character pool based on user preferences
+  allChars += lowercase.checked ? lowerChars : "";
+  allChars += uppercase.checked ? upperChars : "";
+  allChars += number.checked ? allNumbers : "";
+  allChars += symbol.checked ? allSymbols : "";
+
+  // Exclude similar characters if enabled
+  if (excludeSimilar.checked) {
+    allChars = allChars.split("").filter((char) => !similarChars.includes(char)).join("");
+  }
+
+  // Generate password of selected length
+  while (genPassword.length < slider.value) {
+    const char = allChars.charAt(Math.floor(Math.random() * allChars.length));
+    if (excludeDuplicateChars.checked && genPassword.includes(char)) continue;
+    genPassword += char;
+  }
+
+  return genPassword;
+};
+
+// Evaluate password strength
+const evaluatePasswordStrength = (password) => {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (password.length > 12) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
+  if (/[~!@#$%^&*]/.test(password)) score++;
+
+  return score <= 3 ? "Weak" : score <= 5 ? "Medium" : "Strong";
+};
+
+// Update password and strength
+const updatePassword = () => {
+  const password = generatePassword();
+  displayPassword.value = password;
+  const passwordStrengthCode = evaluatePasswordStrength(password);
+  passStrength.textContent = passwordStrengthCode;
+  if(passwordStrengthCode == "Weak"){
+    passStrength.style.color = "red";
+  }else if(passwordStrengthCode == "Medium"){
+    passStrength.style.color = "yellow";
+  }else{
+    passStrength.style.color = "green";
+  }
+};
+
+// Copy password to clipboard
+copyCode.addEventListener("click", () => {
+  if (displayPassword.value) {
+    navigator.clipboard.writeText(displayPassword.value);
+    const notification = document.querySelector(".notifications");
+    notification.style.display = "block";
+    setTimeout(() => (notification.style.display = "none"), 2000);
+  }
+});
+
+// Event Listeners
+generateButton.addEventListener("click", updatePassword);
+reGenerate.addEventListener("click", updatePassword);
+
+// Initialize with a password
+updatePassword();
+
+      
+    </script>
+  </body>
+</html>
