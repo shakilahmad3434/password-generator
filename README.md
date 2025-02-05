@@ -3,6 +3,8 @@
 ## Overview
 The **Advanced Password Generator** is a highly secure and feature-rich web tool built with HTML, CSS, and JavaScript. It allows users to generate strong, customizable passwords with advanced security options, ensuring maximum protection for online accounts.
 
+![Password Generator Preview](password-generator.png)
+
 ## Features
 - **Customizable Password Length** – Set desired password length using a slider.
 - **Character Selection** – Include/exclude lowercase, uppercase, numbers, and symbols.
@@ -20,12 +22,6 @@ The **Advanced Password Generator** is a highly secure and feature-rich web tool
 - **CSS** – Enhances UI/UX for a visually appealing experience.
 - **JavaScript** – Implements interactive functionalities and password generation logic.
 
-## Installation
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-username/advanced-password-generator.git
-   ```
-2. Open the `index.html` file in a web browser.
 
 ## Usage
 1. Adjust the password length using the slider.
@@ -42,6 +38,3 @@ The **Advanced Password Generator** is a highly secure and feature-rich web tool
 
 ## License
 This project is licensed under the **MIT License**.
-
-## Contributing
-Feel free to fork the repository, open issues, or submit pull requests to enhance the project!
